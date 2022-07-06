@@ -27,7 +27,6 @@ public class SqlCommand {
   public static final String INSERT_BATCH = "insertBatch";
   public static final String UPDATE_MAP_BY_MAP = "updateMapByMap";
   public static final String DELETE_BY_MAP = "deleteByMap";
-  // 참고용: 각VO에 암호화 컬럼 정의 방법
   private static final String TABLE_COLUMN_NAME_CREATED_BY = "CREATED_BY";
   private static final String TABLE_COLUMN_NAME_CREATED = "CREATED";
   private static final String TABLE_COLUMN_NAME_UPDATED_BY = "UPDATED_BY";
@@ -57,13 +56,6 @@ public class SqlCommand {
   public static String getTableName(final String javaClassName) {
     return StringUtils.lowerCase(ConverterUtils.getCamelCaseToSnakeCase(javaClassName));
   }
-
-//  private void getSelectSql(final SQL sql, final Set<String> columns) {
-//    columns.forEach(
-//        column -> {
-//          sql.SELECT(ConverterUtils.getCamelCaseToSnakeCase(column));
-//        });
-//  }
 
   private void verifyWhereKey(final Map<String, Object> whereConditions) {
     if (whereConditions == null || whereConditions.size() < 1) {
