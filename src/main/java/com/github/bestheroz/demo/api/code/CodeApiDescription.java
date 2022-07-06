@@ -4,7 +4,8 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class CodeApiDescription {
-public final String GET_ITEMS = """
+  public final String GET_ITEMS =
+      """
 ```
 SELECT
     `updated_by`,
@@ -19,10 +20,10 @@ SELECT
     `updated`
 FROM
     `code`
-```
-""";
+```""";
 
-public final String GET_ITEMS_ORDER_BY = """
+  public final String GET_ITEMS_ORDER_BY =
+      """
 ```
 SELECT
     `updated_by`,
@@ -39,10 +40,10 @@ FROM
     `code`
 ORDER BY
     `display_order` desc
-```
-""";
+```""";
 
-public final String GET_ITEMS_BY_MAP = """
+  public final String GET_ITEMS_BY_MAP =
+      """
 ```
 SELECT
     `updated_by`,
@@ -61,9 +62,9 @@ WHERE
     (
         `type` = 'EXAMPLE'
     )
-```
-""";
-public final String GET_ITEMS_BY_MAP_ORDER_BY = """
+```""";
+  public final String GET_ITEMS_BY_MAP_ORDER_BY =
+      """
 ```
 SELECT
     `updated_by`,
@@ -84,10 +85,10 @@ WHERE
     )
 ORDER BY
     `display_order` desc
-```
-""";
+```""";
 
-public final String GET_ITEM_BY_ID = """
+  public final String GET_ITEM_BY_ID =
+      """
 ```
 SELECT
     `updated_by`,
@@ -106,10 +107,10 @@ WHERE
     (
         `id` = 3
     )
-```
-""";
+```""";
 
-public final String GET_ITEM_BY_MAP = """
+  public final String GET_ITEM_BY_MAP =
+      """
 ```
 SELECT
     `updated_by`,
@@ -131,7 +132,8 @@ WHERE
     )
 ```""";
 
-public final String GET_TARGET_ITEMS = """
+  public final String GET_TARGET_ITEMS =
+      """
 ```
 SELECT
     `type`,
@@ -141,7 +143,8 @@ FROM
     `code`
 ```""";
 
-public final String GET_TARGET_ITEMS_ORDER_BY = """
+  public final String GET_TARGET_ITEMS_ORDER_BY =
+      """
 ```
 SELECT
     `type`,
@@ -153,7 +156,8 @@ FROM
 ORDER BY
     `display_order` desc
 ```""";
-public final String GET_TARGET_ITEMS_BY_MAP = """
+  public final String GET_TARGET_ITEMS_BY_MAP =
+      """
 ```
 SELECT
     `type`,
@@ -168,7 +172,8 @@ WHERE
     )
 ```""";
 
-public final String GET_TARGET_ITEMS_BY_MAP_ORDER_BY = """
+  public final String GET_TARGET_ITEMS_BY_MAP_ORDER_BY =
+      """
 ```
 SELECT
     `type`,
@@ -184,14 +189,15 @@ WHERE
 ORDER BY
     `display_order` desc
 ```""";
-public final String COUNT_ALL = """
+  public final String COUNT_ALL = """
 ```
 SELECT
     COUNT(1) AS CNT
 FROM
     `code`
 ```""";
-public final String COUNT_BY_MAP = """
+  public final String COUNT_BY_MAP =
+      """
 ```
 SELECT
     COUNT(1) AS CNT
@@ -202,14 +208,16 @@ WHERE
         `type` = 'EXAMPLE'
     )
 ```""";
-public final String GET_DISTINCT_ITEMS = """
+  public final String GET_DISTINCT_ITEMS =
+      """
 ```
 SELECT
     DISTINCT `type`, `available`
 FROM
     `code`
 ```""";
-public final String GET_DISTINCT_ITEMS_ORDER_BY = """
+  public final String GET_DISTINCT_ITEMS_ORDER_BY =
+      """
 ```SELECT
     DISTINCT `type`, `available`
 FROM
@@ -217,7 +225,8 @@ FROM
 ORDER BY
     `display_order` desc
 ```""";
-public final String GET_DISTINCT_ITEMS_BY_MAP = """
+  public final String GET_DISTINCT_ITEMS_BY_MAP =
+      """
 ```
 SELECT
     DISTINCT `type`, `available`
@@ -228,7 +237,8 @@ WHERE
         `type` = 'EXAMPLE'
     )
 ```""";
-public final String GET_DISTINCT_ITEMS_BY_MAP_ORDER_BY = """
+  public final String GET_DISTINCT_ITEMS_BY_MAP_ORDER_BY =
+      """
 ```
 SELECT
     DISTINCT `type`, `available`
@@ -241,7 +251,8 @@ WHERE
 ORDER BY
     `display_order` desc
 ```""";
-public final String INSERT =  """
+  public final String INSERT =
+      """
 ```
 INSERT
 INTO
@@ -251,7 +262,8 @@ INTO
 VALUES
     (false, 20, null, '예제3', 'EXAMPLE', 'E3', NOW(), NOW(), 1004, 1004)
 ```""";
-public final String INSERT_BATCH = """
+  public final String INSERT_BATCH =
+      """
 ```
 INSERT
 INTO
@@ -263,7 +275,8 @@ VALUES
     (1004, 1004, NOW(), true, 11, null, '샘플6', 'SAMPLE', 'S6', NOW()),
     (1004, 1004, NOW(), true, 12, null, '샘플7', 'SAMPLE', 'S7', NOW())
 ```""";
-public final String UPDATE_BY_ID = """
+  public final String UPDATE_BY_ID =
+      """
 ```
 UPDATE
     `code`
@@ -282,7 +295,8 @@ WHERE
     )
 ```""";
 
-public final String UPDATE_BY_MAP = """
+  public final String UPDATE_BY_MAP =
+      """
 ```
 UPDATE
     `code`
@@ -300,7 +314,8 @@ WHERE
         `display_order` = '3'
     )
 ```""";
-public final String UPDATE_MAP_BY_MAP = """
+  public final String UPDATE_MAP_BY_MAP =
+      """
 ```
 UPDATE
     `code`
@@ -313,7 +328,8 @@ WHERE
         `display_order` = '3'
     )
 ```""";
-public final String UPDATE_MAP_BY_ID = """
+  public final String UPDATE_MAP_BY_ID =
+      """
 ```
 UPDATE
     `code`
@@ -326,7 +342,8 @@ WHERE
         `id` = 5
     )
 ```""";
-public final String DELETE_BY_ID = """
+  public final String DELETE_BY_ID =
+      """
 ```
 DELETE
 FROM
@@ -336,7 +353,8 @@ WHERE
         `id` = 5
     )
 ```""";
-public final String DELETE_BY_MAP = """
+  public final String DELETE_BY_MAP =
+      """
 ```
 DELETE
 FROM

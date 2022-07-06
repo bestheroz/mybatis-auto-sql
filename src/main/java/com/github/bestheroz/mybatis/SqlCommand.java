@@ -141,7 +141,8 @@ public class SqlCommand {
       }
     } else {
       for (final String distinctColumn : distinctColumns) {
-        sql.SELECT_DISTINCT(this.wrapIdentifier(ConverterUtils.getCamelCaseToSnakeCase(distinctColumn)));
+        sql.SELECT_DISTINCT(
+            this.wrapIdentifier(ConverterUtils.getCamelCaseToSnakeCase(distinctColumn)));
       }
       for (final String targetColumn : targetColumns) {
         if (!distinctColumns.contains(targetColumn)) {
@@ -153,7 +154,10 @@ public class SqlCommand {
     this.getWhereSql(sql, whereConditions);
     for (final String orderByCondition : orderByConditions) {
       final String column = ConverterUtils.getCamelCaseToSnakeCase(orderByCondition);
-      sql.ORDER_BY(StringUtils.startsWith(column, "-")? this.wrapIdentifier(StringUtils.remove(column,"-")) + " desc" : this.wrapIdentifier(column));
+      sql.ORDER_BY(
+          StringUtils.startsWith(column, "-")
+              ? this.wrapIdentifier(StringUtils.remove(column, "-")) + " desc"
+              : this.wrapIdentifier(column));
     }
     log.debug(sql.toString());
     return sql.toString();
@@ -172,11 +176,12 @@ public class SqlCommand {
         .filter(
             item ->
                 !StringUtils.equalsAny(
-                    item.getKey(),
-                    VARIABLE_NAME_CREATED,
-                    VARIABLE_NAME_CREATED_BY,
-                    VARIABLE_NAME_UPDATED,
-                    VARIABLE_NAME_UPDATED_BY) && !EXCLUDE_FIELD_SET.contains(item.getKey()))
+                        item.getKey(),
+                        VARIABLE_NAME_CREATED,
+                        VARIABLE_NAME_CREATED_BY,
+                        VARIABLE_NAME_UPDATED,
+                        VARIABLE_NAME_UPDATED_BY)
+                    && !EXCLUDE_FIELD_SET.contains(item.getKey()))
         .forEach(
             item ->
                 sql.VALUES(
@@ -205,7 +210,7 @@ public class SqlCommand {
   }
 
   public <T> String insertBatch(@NonNull final List<T> entities) {
-    if ( entities.size() < 1) {
+    if (entities.size() < 1) {
       log.warn("entities empty");
       throw new RuntimeException("entities empty");
     }
@@ -214,29 +219,33 @@ public class SqlCommand {
     final Set<String> columns = this.getEntityFields(entities.get(0));
 
     sql.INTO_COLUMNS(
-        columns.stream().filter(
-            item ->
-                !EXCLUDE_FIELD_SET.contains(item)).map(str -> this.wrapIdentifier(ConverterUtils.getCamelCaseToSnakeCase(str))).collect(Collectors.joining(", ")));
+        columns.stream()
+            .filter(item -> !EXCLUDE_FIELD_SET.contains(item))
+            .map(str -> this.wrapIdentifier(ConverterUtils.getCamelCaseToSnakeCase(str)))
+            .collect(Collectors.joining(", ")));
 
     final List<ArrayList<String>> valuesList =
-    entities.stream()
-        .map(ConverterUtils::toMap)
-        .map(
-            entity -> new ArrayList<>(columns.stream()
-                .map(
-                    column -> {
-                      if (StringUtils.equalsAny(
-                          column, VARIABLE_NAME_CREATED, VARIABLE_NAME_UPDATED)) {
-                        return SYSDATE;
-                      } else if (StringUtils.equalsAny(
-                          column, VARIABLE_NAME_CREATED_BY, VARIABLE_NAME_UPDATED_BY)) {
-                        // FIXME: getUserID()
-                        return "1004";
-                      } else {
-                        return this.getFormattedValue(entity.get(column));
-                      }
-                    })
-                .toList())).toList();
+        entities.stream()
+            .map(ConverterUtils::toMap)
+            .map(
+                entity ->
+                    new ArrayList<>(
+                        columns.stream()
+                            .map(
+                                column -> {
+                                  if (StringUtils.equalsAny(
+                                      column, VARIABLE_NAME_CREATED, VARIABLE_NAME_UPDATED)) {
+                                    return SYSDATE;
+                                  } else if (StringUtils.equalsAny(
+                                      column, VARIABLE_NAME_CREATED_BY, VARIABLE_NAME_UPDATED_BY)) {
+                                    // FIXME: getUserID()
+                                    return "1004";
+                                  } else {
+                                    return this.getFormattedValue(entity.get(column));
+                                  }
+                                })
+                            .toList()))
+            .toList();
     sql.INTO_VALUES(
         valuesList.stream()
             .map(value -> StringUtils.join(value, ", "))
@@ -254,11 +263,12 @@ public class SqlCommand {
     updateMap.forEach(
         (javaFieldName, value) -> {
           if (!StringUtils.equalsAny(
-              javaFieldName,
-              VARIABLE_NAME_CREATED_BY,
-              VARIABLE_NAME_CREATED,
-              VARIABLE_NAME_UPDATED,
-              VARIABLE_NAME_UPDATED_BY) && !EXCLUDE_FIELD_SET.contains(javaFieldName)) {
+                  javaFieldName,
+                  VARIABLE_NAME_CREATED_BY,
+                  VARIABLE_NAME_CREATED,
+                  VARIABLE_NAME_UPDATED,
+                  VARIABLE_NAME_UPDATED_BY)
+              && !EXCLUDE_FIELD_SET.contains(javaFieldName)) {
             sql.SET(this.getEqualSql(ConverterUtils.getCamelCaseToSnakeCase(javaFieldName), value));
           }
         });
@@ -280,8 +290,7 @@ public class SqlCommand {
     if (fieldNames.contains(VARIABLE_NAME_UPDATED_BY)) {
       sql.SET(
           // FIXME: getUserID()
-          MessageFormat.format(
-              "`{0}` = ''{1}''", TABLE_COLUMN_NAME_UPDATED_BY, "1004"));
+          MessageFormat.format("`{0}` = ''{1}''", TABLE_COLUMN_NAME_UPDATED_BY, "1004"));
     }
   }
 
@@ -312,9 +321,10 @@ public class SqlCommand {
         return MessageFormat.format("`{0}` <> {1}", dbColumnName, this.getFormattedValue(value));
       case "in":
         {
-          if(value instanceof List){
+          if (value instanceof List) {
             log.warn("conditionType 'in' is require Set");
-            throw new RuntimeException("conditionType 'in' is require Set, yours : " + value.getClass());
+            throw new RuntimeException(
+                "conditionType 'in' is require Set, yours : " + value.getClass());
           }
           final Set<?> values = (Set<?>) value;
           if (values.isEmpty()) {
@@ -327,9 +337,10 @@ public class SqlCommand {
               values.stream().map(this::getFormattedValue).collect(Collectors.joining(", ")));
         }
       case "notIn":
-        if(value instanceof List){
+        if (value instanceof List) {
           log.warn("conditionType 'notIn' is require Set");
-          throw new RuntimeException("conditionType 'notIn' is require Set, yours: " + value.getClass());
+          throw new RuntimeException(
+              "conditionType 'notIn' is require Set, yours: " + value.getClass());
         }
         final Set<?> values = (Set<?>) value;
         if (values.isEmpty()) {
@@ -376,7 +387,9 @@ public class SqlCommand {
       return "null";
     } else if (value instanceof String str) {
       if (this.isISO8601String(str)) {
-        return "'" + ConverterUtils.converterInstantToString(Instant.parse(str), "yyyy-MM-dd HH:mm:ss.SSS") + "'";
+        return "'"
+            + ConverterUtils.converterInstantToString(Instant.parse(str), "yyyy-MM-dd HH:mm:ss.SSS")
+            + "'";
         // FIXME: MYSQL 사용시 주석을 풀어 위에 코드를 대체해주세요.
         //        return MessageFormat.format(
         //            "FROM_UNIXTIME({0,number,#})",
@@ -385,7 +398,9 @@ public class SqlCommand {
         return "'" + str.replaceAll("'", "''") + "'";
       }
     } else if (value instanceof Instant instant) {
-      return "'" + ConverterUtils.converterInstantToString(instant,"yyyy-MM-dd HH:mm:ss.SSS") + "'";
+      return "'"
+          + ConverterUtils.converterInstantToString(instant, "yyyy-MM-dd HH:mm:ss.SSS")
+          + "'";
       // FIXME: MYSQL 사용시 주석을 풀어 위에 코드를 대체해주세요.
       //      MYSQL
       //      return MessageFormat.format(
@@ -408,7 +423,7 @@ public class SqlCommand {
         });
   }
 
-  private String wrapIdentifier(final String identifier){
+  private String wrapIdentifier(final String identifier) {
     return "`" + identifier + "`";
   }
 
@@ -418,5 +433,4 @@ public class SqlCommand {
         && StringUtils.countMatches(value, 'T') == 1
         && (StringUtils.endsWith(value, "Z") || StringUtils.countMatches(value, '+') == 1);
   }
-
 }

@@ -1,6 +1,5 @@
 package com.github.bestheroz.demo.api.code;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.bestheroz.demo.entity.Code;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.Instant;
