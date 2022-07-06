@@ -28,7 +28,7 @@ dependencies {
     implementation "org.springdoc:springdoc-openapi-ui:$springdocVersion"
     implementation "org.springdoc:springdoc-openapi-webmvc-core:$springdocVersion"
     implementation "org.springdoc:springdoc-openapi-data-rest:$springdocVersion"
-    implementation "org.flywaydb:flyway-core"
+    implementation "org.flywaydb:flyway-mysql"
     compileOnly "org.springframework.boot:spring-boot-starter-tomcat"
     annotationProcessor "org.projectlombok:lombok"
     testAnnotationProcessor "org.projectlombok:lombok"
