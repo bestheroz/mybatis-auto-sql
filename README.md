@@ -31,7 +31,7 @@
 
 [Prodject for Java 17 (Click)](https://github.com/bestheroz/mybatis-auto-sql)
 
-[Prodject for Java 11 (Click)](https://github.com/bestheroz/mybatis-auto-sql-java17)
+[Prodject for Java 11 (Click)](https://github.com/bestheroz/mybatis-auto-sql-java11)
 
 [Prodject for Java 8 (Click)](https://github.com/bestheroz/mybatis-auto-sql-java8)
 
