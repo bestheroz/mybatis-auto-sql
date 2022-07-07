@@ -27,14 +27,14 @@ public class SqlCommand {
   public static final String INSERT_BATCH = "insertBatch";
   public static final String UPDATE_MAP_BY_MAP = "updateMapByMap";
   public static final String DELETE_BY_MAP = "deleteByMap";
-  private static final String TABLE_COLUMN_NAME_CREATED_BY = "CREATED_BY";
-  private static final String TABLE_COLUMN_NAME_CREATED = "CREATED";
-  private static final String TABLE_COLUMN_NAME_UPDATED_BY = "UPDATED_BY";
-  private static final String TABLE_COLUMN_NAME_UPDATED = "UPDATED";
-  private static final String VARIABLE_NAME_CREATED_BY = "createdBy";
-  private static final String VARIABLE_NAME_CREATED = "created";
-  private static final String VARIABLE_NAME_UPDATED_BY = "updatedBy";
-  private static final String VARIABLE_NAME_UPDATED = "updated";
+  private static final String TABLE_COLUMN_NAME_CREATED_BY = "CREATED_BY"; // no use "-"
+  private static final String TABLE_COLUMN_NAME_CREATED = "CREATED"; // no use "-"
+  private static final String TABLE_COLUMN_NAME_UPDATED_BY = "UPDATED_BY"; // no use "-"
+  private static final String TABLE_COLUMN_NAME_UPDATED = "UPDATED"; // no use "-"
+  private static final String VARIABLE_NAME_CREATED_BY = "createdBy"; // no use "-"
+  private static final String VARIABLE_NAME_CREATED = "created"; // no use "-"
+  private static final String VARIABLE_NAME_UPDATED_BY = "updatedBy"; // no use "-"
+  private static final String VARIABLE_NAME_UPDATED = "updated"; // no use "-"
   private static final String SYSDATE = "NOW()";
   public static final Set<String> EXCLUDE_FIELD_SET =
       Set.of("SERIAL_VERSION_U_I_D", "serialVersionUID", "E_N_C_R_Y_P_T_E_D__C_O_L_U_M_N__L_I_S_T");
@@ -352,9 +352,9 @@ public class SqlCommand {
             dbColumnName,
             values.stream().map(this::getFormattedValue).collect(Collectors.joining(", ")));
       case "null":
-        return MessageFormat.format("`{0}` is null", dbColumnName);
+        return MessageFormat.format("`{0}` IS NULL", dbColumnName);
       case "notNull":
-        return MessageFormat.format("`{0}` is not null", dbColumnName);
+        return MessageFormat.format("`{0}` IS NOT NULL", dbColumnName);
       case "contains":
         return MessageFormat.format(
             "INSTR(`{0}`, {1}) > 0", dbColumnName, this.getFormattedValue(value));
