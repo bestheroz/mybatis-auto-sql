@@ -311,7 +311,7 @@ SET
     `UPDATED_BY` = '1004'
 WHERE
     (
-        `display_order` = '3'
+        `display_order` = 3
     )
 ```""";
   public final String UPDATE_MAP_BY_MAP =
@@ -325,7 +325,7 @@ SET
     `UPDATED_BY` = '1004'
 WHERE
     (
-        `display_order` = '3'
+        `display_order` = 3
     )
 ```""";
   public final String UPDATE_MAP_BY_ID =
@@ -361,7 +361,7 @@ FROM
     `code`
 WHERE
     (
-        `display_order` = '3'
+        `display_order` = 3
     )
 ```""";
 }
