@@ -66,7 +66,7 @@ public class SqlCommand {
 
   public String countByMap(final Map<String, Object> whereConditions) {
     final SQL sql = new SQL();
-    sql.SELECT("COUNT(1) AS CNT").FROM(this.wrapIdentifier(this.getTableName()));
+    sql.SELECT("COUNT(1) AS CNT").FROM(this.getTableName());
     this.getWhereSql(sql, whereConditions);
     log.debug(sql.toString());
     return sql.toString();
@@ -150,7 +150,7 @@ public class SqlCommand {
         }
       }
     }
-    sql.FROM(this.wrapIdentifier(this.getTableName()));
+    sql.FROM(this.getTableName());
     this.getWhereSql(sql, whereConditions);
     for (final String orderByCondition : orderByConditions) {
       final String column = ConverterUtils.getCamelCaseToSnakeCase(orderByCondition);
@@ -259,7 +259,7 @@ public class SqlCommand {
     this.verifyWhereKey(whereConditions);
 
     final SQL sql = new SQL();
-    sql.UPDATE(this.wrapIdentifier(this.getTableName()));
+    sql.UPDATE(this.getTableName());
     updateMap.forEach(
         (javaFieldName, value) -> {
           if (!StringUtils.equalsAny(
@@ -297,7 +297,7 @@ public class SqlCommand {
   public String deleteByMap(final Map<String, Object> whereConditions) {
     this.verifyWhereKey(whereConditions);
     final SQL sql = new SQL();
-    sql.DELETE_FROM(this.wrapIdentifier(this.getTableName()));
+    sql.DELETE_FROM(this.getTableName());
     this.getWhereSql(sql, whereConditions);
     this.requiredWhereConditions(sql);
     log.debug(sql.toString());
