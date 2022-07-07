@@ -109,12 +109,12 @@ public interface SqlRepository<T extends Serializable> {
   @InsertProvider(type = SqlCommand.class, method = SqlCommand.INSERT)
   // @SelectKey(statement = "SELECT SEQSEQSEQSEQ.NEXTVAL FROM DUAL", keyProperty = "seq", before =
   // true, resultType = Long.class)
-  // insert 가 되고 나서 id 값을 가져와서 저장한다. 모델에 id 값이 없다면 아래 라인 삭제
+  // insert 가 되고 나서 pk 값을 동기화하여 저장한다. pk 값이 다르다면 아래 id 를 수정
   @Options(useGeneratedKeys = true, keyProperty = "id")
   void insert(final T entity);
 
   @InsertProvider(type = SqlCommand.class, method = SqlCommand.INSERT_BATCH)
-  // insert 가 되고 나서 id 값을 가져와서 저장한다. 모델에 id 값이 없다면 아래 라인 삭제
+  // insert 가 되고 나서 pk 값을 동기화하여 저장한다. pk 값이 다르다면 아래 id 를 수정
   @Options(useGeneratedKeys = true, keyProperty = "id")
   void insertBatch(final List<T> entities);
 
