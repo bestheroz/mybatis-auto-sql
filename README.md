@@ -1,6 +1,8 @@
 # mybatis-auto-sql
 
-**This project that help you not write simple sql when using mybatis.**
+**Mybatis 를 사용할때 쿼리를 작성하지 않도록 도와주는 프로젝트입니다.**
+
+**엔티티마다 반복적으로 작성하는 쿼리를 자동으로 생성하여 작업 시간을 크게 단축시킬 수 있습니다.**
 
 ## Major Feature
 
@@ -160,27 +162,27 @@ public interface CodeRepository extends SqlRepository<Code> {
 ```java
 List<Code> codes=this.codeRepository.getItemsByMap(Map.of("type","EXAMPLE"));
 
-    List<Code> codes=this.codeRepository.getItemsByMapOrderBy(Map.of("type","EXAMPLE"),orderByConditions);
+List<Code> codes=this.codeRepository.getItemsByMapOrderBy(Map.of("type","EXAMPLE"),orderByConditions);
 
-    List<Code> codes=this.codeRepository.getItemByMap(Map.of("type","EXAMPLE","value","E2"));
+List<Code> codes=this.codeRepository.getItemByMap(Map.of("type","EXAMPLE","value","E2"));
 
-    List<Code> codes=this.codeRepository.getTargetItemsByMap(Set.of("type","value","text"),Map.of("type","EXAMPLE"));
+List<Code> codes=this.codeRepository.getTargetItemsByMap(Set.of("type","value","text"),Map.of("type","EXAMPLE"));
 
-    int count=this.codeRepository.countByMap(Map.of("type","EXAMPLE"));
+int count=this.codeRepository.countByMap(Map.of("type","EXAMPLE"));
 
-    List<Code> codes=this.codeRepository.getDistinctItemsByMap(Set.of("type"),Map.of("type","EXAMPLE"));;
+List<Code> codes=this.codeRepository.getDistinctItemsByMap(Set.of("type"),Map.of("type","EXAMPLE"));;
 
-    this.codeRepository.insert(code);
+this.codeRepository.insert(code);
 
-    this.codeRepository.insertBatch(codes);
+this.codeRepository.insertBatch(codes);
 
-    this.codeRepository.updateByMap(payload.toCode(),Map.of("type","EXAMPLE","value","E2"));
+this.codeRepository.updateByMap(payload.toCode(),Map.of("type","EXAMPLE","value","E2"));
 
-    this.codeRepository.updateMapByMap(Map.of("text","예제2-1"),Map.of("type","EXAMPLE","value","E2"));
+this.codeRepository.updateMapByMap(Map.of("text","예제2-1"),Map.of("type","EXAMPLE","value","E2"));
 
-    this.codeRepository.deleteByMap(Map.of("type","EXAMPLE","value","E2"));
+this.codeRepository.deleteByMap(Map.of("type","EXAMPLE","value","E2"));
 
-    this.codeRepository.deleteById(5L);
+this.codeRepository.deleteById(5L);
 ```
 
 ## Demo
@@ -194,64 +196,64 @@ SqlRepository.java
 ```java
 List<T> getItems();
 
-    List<T> getItemsOrderBy(final List<String> orderByConditions);
+List<T> getItemsOrderBy(final List<String> orderByConditions);
 
-    List<T> getItemsByMap(final Map<String, Object> whereConditions);
+List<T> getItemsByMap(final Map<String, Object> whereConditions);
 
-    List<T> getItemsByMapOrderBy(final Map<String, Object> whereConditions,final List<String> orderByConditions);
+List<T> getItemsByMapOrderBy(final Map<String, Object> whereConditions,final List<String> orderByConditions);
 
-    List<T> getDistinctItems(final Set<String> distinctColumns);
+List<T> getDistinctItems(final Set<String> distinctColumns);
 
-    List<T> getDistinctItemsOrderBy(final Set<String> distinctColumns,final List<String> orderByConditions);
+List<T> getDistinctItemsOrderBy(final Set<String> distinctColumns,final List<String> orderByConditions);
 
-    List<T> getDistinctItemsByMap(final Set<String> distinctColumns,final Map<String, Object> whereConditions);
+List<T> getDistinctItemsByMap(final Set<String> distinctColumns,final Map<String, Object> whereConditions);
 
-    List<T> getDistinctItemsByMapOrderBy(final Set<String> distinctColumns,final Map<String, Object> whereConditions,final List<String> orderByConditions);
-
-// Target 시리즈를 사용하기 위해서는 Entity에 반드시 @NoArgsConstructor 가 필요하다
-    List<T> getTargetItems(final Set<String> targetColumns);
+List<T> getDistinctItemsByMapOrderBy(final Set<String> distinctColumns,final Map<String, Object> whereConditions,final List<String> orderByConditions);
 
 // Target 시리즈를 사용하기 위해서는 Entity에 반드시 @NoArgsConstructor 가 필요하다
-    List<T> getTargetItemsOrderBy(final Set<String> targetColumns,final List<String> orderByConditions);
+List<T> getTargetItems(final Set<String> targetColumns);
 
 // Target 시리즈를 사용하기 위해서는 Entity에 반드시 @NoArgsConstructor 가 필요하다
-    List<T> getTargetItemsByMap(final Set<String> targetColumns,final Map<String, Object> whereConditions)
+List<T> getTargetItemsOrderBy(final Set<String> targetColumns,final List<String> orderByConditions);
 
 // Target 시리즈를 사용하기 위해서는 Entity에 반드시 @NoArgsConstructor 가 필요하다
-    List<T> getTargetItemsByMapOrderBy(
+List<T> getTargetItemsByMap(final Set<String> targetColumns,final Map<String, Object> whereConditions)
+
+// Target 시리즈를 사용하기 위해서는 Entity에 반드시 @NoArgsConstructor 가 필요하다
+List<T> getTargetItemsByMapOrderBy(
 final Set<String> targetColumns,
 final Map<String, Object> whereConditions,
 final List<String> orderByConditions);
 
-    List<T> getDistinctAndTargetItemsByMapOrderBy(
+List<T> getDistinctAndTargetItemsByMapOrderBy(
 final Set<String> distinctColumns,
 final Set<String> targetColumns,
 final Map<String, Object> whereConditions,
 final List<String> orderByConditions);
 
-    Optional<T> getItemByMap(final Map<String, Object> whereConditions);
+Optional<T> getItemByMap(final Map<String, Object> whereConditions);
 
-    Optional<T> getItemById(final Long id);
+Optional<T> getItemById(final Long id);
 
-    int countAll();
+int countAll();
 
-    int countByMap(final Map<String, Object> whereConditions);
+int countByMap(final Map<String, Object> whereConditions);
 
-    void insert(final T entity);
+void insert(final T entity);
 
-    void insertBatch(final List<T> entities);
+void insertBatch(final List<T> entities);
 
-    void updateById(final T entity,final Long id);
+void updateById(final T entity,final Long id);
 
-    void updateByMap(final T entity,final Map<String, Object> whereConditions);
+void updateByMap(final T entity,final Map<String, Object> whereConditions);
 
-    void updateMapByMap(final Map<String, Object> updateMap,final Map<String, Object> whereConditions);
+void updateMapByMap(final Map<String, Object> updateMap,final Map<String, Object> whereConditions);
 
-    void updateMapById(final Map<String, Object> updateMap,final Long id);
+void updateMapById(final Map<String, Object> updateMap,final Long id);
 
-    void deleteByMap(final Map<String, Object> whereConditions);
+void deleteByMap(final Map<String, Object> whereConditions);
 
-    void deleteById(final Long id);
+void deleteById(final Long id);
 ```
 
 ## Where conditions
@@ -259,17 +261,10 @@ final List<String> orderByConditions);
 - **default** `equals(=)`
 
 ```sql
-this
-.
-codeRepository
-.
-getItemsByMap
-(Map.of("type", "EXAMPLE"));
-this.codeRepository.getItemsByMap
-(Map.of("type:eq", "EXAMPLE"));
-===
-Executed SQL
-===
+this.codeRepository.getItemsByMap(Map.of("type", "EXAMPLE"));
+this.codeRepository.getItemsByMap(Map.of("type:eq", "EXAMPLE"));
+
+=== Executed SQL ===
 SELECT `updated_by`,
        `created_by`,
        `created`,
@@ -287,17 +282,10 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-updateMapByMap
-(Map.of("text", "예제3"), Map.of("displayOrder", 3));
-this.codeRepository.updateMapByMap
-(Map.of("text", "예제3"), Map.of("displayOrder:eq", 3));
-===
-Executed SQL
-===
+this.codeRepository.updateMapByMap(Map.of("text", "예제3"), Map.of("displayOrder", 3));
+this.codeRepository.updateMapByMap(Map.of("text", "예제3"), Map.of("displayOrder:eq", 3));
+
+=== Executed SQL ===
 UPDATE
     `code`
 SET `text`       = '예제3',
@@ -309,17 +297,10 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-deleteByMap
-(Map.of("displayOrder", 3));
-this.codeRepository.deleteByMap
-(Map.of("displayOrder:eq", 3));
-===
-Executed SQL
-===
+this.codeRepository.deleteByMap(Map.of("displayOrder", 3));
+this.codeRepository.deleteByMap(Map.of("displayOrder:eq", 3));
+
+=== Executed SQL ===
 DELETE
 FROM `code`
 WHERE (
@@ -330,15 +311,9 @@ WHERE (
 - `not equals(!=)`
 
 ```sql
-this
-.
-codeRepository
-.
-getItemsByMap
-(Map.of("type:ne", "EXAMPLE"));
-===
-Executed SQL
-===
+this.codeRepository.getItemsByMap(Map.of("type:ne", "EXAMPLE"));
+
+=== Executed SQL ===
 SELECT `updated_by`,
        `created_by`,
        `created`,
@@ -356,15 +331,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-updateMapByMap
-(Map.of("text", "예제3"), Map.of("displayOrder:ne", 3));
-===
-Executed SQL
-===
+this.codeRepository.updateMapByMap(Map.of("text", "예제3"), Map.of("displayOrder:ne", 3));
+
+=== Executed SQL ===
 UPDATE
     `code`
 SET `text`       = '예제3',
@@ -376,15 +345,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-deleteByMap
-(Map.of("displayOrder:ne", 3));
-===
-Executed SQL
-===
+this.codeRepository.deleteByMap(Map.of("displayOrder:ne", 3));
+
+=== Executed SQL ===
 DELETE
 FROM `code`
 WHERE (
@@ -395,15 +358,9 @@ WHERE (
 - `in`
 
 ```sql
-this
-.
-codeRepository
-.
-getItemsByMap
-(Map.of("type:in", Set.of("EXAMPLE", "SAMPLE")));
-===
-Executed SQL
-===
+this.codeRepository.getItemsByMap(Map.of("type:in", Set.of("EXAMPLE", "SAMPLE")));
+
+=== Executed SQL ===
 SELECT `updated_by`,
        `created_by`,
        `created`,
@@ -421,15 +378,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-updateMapByMap
-(Map.of("text", "예제3"), Map.of("displayOrder:in", Set.of(1, 3)));
-===
-Executed SQL
-===
+this.codeRepository.updateMapByMap(Map.of("text", "예제3"), Map.of("displayOrder:in", Set.of(1, 3)));
+
+=== Executed SQL ===
 UPDATE
     `code`
 SET `text`       = '예제3',
@@ -441,15 +392,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-deleteByMap
-(Map.of("displayOrder:in", Set.of(1, 3)));
-===
-Executed SQL
-===
+this.codeRepository.deleteByMap(Map.of("displayOrder:in", Set.of(1, 3)));
+
+=== Executed SQL ===
 DELETE
 FROM `code`
 WHERE (
@@ -460,15 +405,9 @@ WHERE (
 - `not in`
 
 ```sql
-this
-.
-codeRepository
-.
-getItemsByMap
-(Map.of("type:notIn", Set.of("EXAMPLE", "SAMPLE")));
-===
-Executed SQL
-===
+this.codeRepository.getItemsByMap(Map.of("type:notIn", Set.of("EXAMPLE", "SAMPLE")));
+
+=== Executed SQL ===
 SELECT `updated_by`,
        `created_by`,
        `created`,
@@ -486,15 +425,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-updateMapByMap
-(Map.of("text", "예제3"), Map.of("displayOrder:notIn", Set.of(1, 3)));
-===
-Executed SQL
-===
+this.codeRepository.updateMapByMap(Map.of("text", "예제3"), Map.of("displayOrder:notIn", Set.of(1, 3)));
+
+=== Executed SQL ===
 UPDATE
     `code`
 SET `text`       = '예제3',
@@ -506,15 +439,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-deleteByMap
-(Map.of("displayOrder:notIn", Set.of(1, 3)));
-===
-Executed SQL
-===
+this.codeRepository.deleteByMap(Map.of("displayOrder:notIn", Set.of(1, 3)));
+
+=== Executed SQL ===
 DELETE
 FROM `code`
 WHERE (
@@ -525,15 +452,9 @@ WHERE (
 - `is null`
 
 ```sql
-this
-.
-codeRepository
-.
-getItemsByMap
-(Map.of("type:null", "anyValue"));
-===
-Executed SQL
-===
+this.codeRepository.getItemsByMap(Map.of("type:null", "anyValue"));
+
+=== Executed SQL ===
 SELECT `updated_by`,
        `created_by`,
        `created`,
@@ -551,15 +472,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-updateMapByMap
-(Map.of("text", "예제3"), Map.of("displayOrder:null", "anyValue"));
-===
-Executed SQL
-===
+this.codeRepository.updateMapByMap(Map.of("text", "예제3"), Map.of("displayOrder:null", "anyValue"));
+
+=== Executed SQL ===
 UPDATE
     `code`
 SET `text`       = '예제3',
@@ -571,15 +486,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-deleteByMap
-(Map.of("displayOrder:null", "anyValue"));
-===
-Executed SQL
-===
+this.codeRepository.deleteByMap(Map.of("displayOrder:null", "anyValue"));
+
+=== Executed SQL ===
 DELETE
 FROM `code`
 WHERE (
@@ -590,15 +499,9 @@ WHERE (
 - `is not null`
 
 ```sql
-this
-.
-codeRepository
-.
-getItemsByMap
-(Map.of("type:notNull", "anyValue"));
-===
-Executed SQL
-===
+this.codeRepository.getItemsByMap(Map.of("type:notNull", "anyValue"));
+
+=== Executed SQL ===
 SELECT `updated_by`,
        `created_by`,
        `created`,
@@ -616,15 +519,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-updateMapByMap
-(Map.of("text", "예제3"), Map.of("displayOrder:notNull", "anyValue"));
-===
-Executed SQL
-===
+this.codeRepository.updateMapByMap(Map.of("text", "예제3"), Map.of("displayOrder:notNull", "anyValue"));
+
+=== Executed SQL ===
 UPDATE
     `code`
 SET `text`       = '예제3',
@@ -636,15 +533,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-deleteByMap
-(Map.of("displayOrder:notNull", "anyValue"));
-===
-Executed SQL
-===
+this.codeRepository.deleteByMap(Map.of("displayOrder:notNull", "anyValue"));
+
+=== Executed SQL ===
 DELETE
 FROM `code`
 WHERE (
@@ -655,15 +546,9 @@ WHERE (
 - `contains(INSTR() > 0)`
 
 ```sql
-this
-.
-codeRepository
-.
-getItemsByMap
-(Map.of("type:contains", "EXAMPLE"));
-===
-Executed SQL
-===
+this.codeRepository.getItemsByMap(Map.of("type:contains", "EXAMPLE"));
+ 
+=== Executed SQL ===
 SELECT `updated_by`,
        `created_by`,
        `created`,
@@ -681,15 +566,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-updateMapByMap
-(Map.of("text", "예제3"), Map.of("type:contains", "EXAMPLE"));
-===
-Executed SQL
-===
+this.codeRepository.updateMapByMap(Map.of("text", "예제3"), Map.of("type:contains", "EXAMPLE"));
+
+=== Executed SQL ===
 UPDATE
     `code`
 SET `text`       = '예제3',
@@ -701,15 +580,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-deleteByMap
-(Map.of("type:contains", "EXAMPLE"));
-===
-Executed SQL
-===
+this.codeRepository.deleteByMap(Map.of("type:contains", "EXAMPLE"));
+
+=== Executed SQL ===
 DELETE
 FROM `code`
 WHERE (
@@ -720,15 +593,9 @@ WHERE (
 - `not contains(INSTR() = 0)`
 
 ```sql
-this
-.
-codeRepository
-.
-getItemsByMap
-(Map.of("type:notContains", "EXAMPLE"));
-===
-Executed SQL
-===
+this.codeRepository.getItemsByMap(Map.of("type:notContains", "EXAMPLE"));
+
+=== Executed SQL ===
 SELECT `updated_by`,
        `created_by`,
        `created`,
@@ -746,15 +613,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-updateMapByMap
-(Map.of("text", "예제3"), Map.of("type:notContains", "EXAMPLE"));
-===
-Executed SQL
-===
+this.codeRepository.updateMapByMap(Map.of("text", "예제3"), Map.of("type:notContains", "EXAMPLE"));
+
+=== Executed SQL ===
 UPDATE
     `code`
 SET `text`       = '예제3',
@@ -766,15 +627,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-deleteByMap
-(Map.of("type:notContains", "EXAMPLE"));
-===
-Executed SQL
-===
+this.codeRepository.deleteByMap(Map.of("type:notContains", "EXAMPLE"));
+
+=== Executed SQL ===
 DELETE
 FROM `code`
 WHERE (
@@ -785,15 +640,9 @@ WHERE (
 - `startsWith(INSTR() = 1)`
 
 ```sql
-this
-.
-codeRepository
-.
-getItemsByMap
-(Map.of("type:startsWith", "EXAMPLE"));
-===
-Executed SQL
-===
+this.codeRepository.getItemsByMap(Map.of("type:startsWith", "EXAMPLE"));
+
+=== Executed SQL ===
 SELECT `updated_by`,
        `created_by`,
        `created`,
@@ -811,15 +660,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-updateMapByMap
-(Map.of("text", "예제3"), Map.of("type:startsWith", "EXAMPLE"));
-===
-Executed SQL
-===
+this.codeRepository.updateMapByMap(Map.of("text", "예제3"), Map.of("type:startsWith", "EXAMPLE"));
+
+=== Executed SQL ===
 UPDATE
     `code`
 SET `text`       = '예제3',
@@ -831,15 +674,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-deleteByMap
-(Map.of("type:startsWith", "EXAMPLE"));
-===
-Executed SQL
-===
+this.codeRepository.deleteByMap(Map.of("type:startsWith", "EXAMPLE"));
+
+=== Executed SQL ===
 DELETE
 FROM `code`
 WHERE (
@@ -850,15 +687,9 @@ WHERE (
 - `endsWith(RIGHT())`
 
 ```sql
-this
-.
-codeRepository
-.
-getItemsByMap
-(Map.of("type:endsWith", "EXAMPLE"));
-===
-Executed SQL
-===
+this.codeRepository.getItemsByMap(Map.of("type:endsWith", "EXAMPLE"));
+
+=== Executed SQL ===
 SELECT `updated_by`,
        `created_by`,
        `created`,
@@ -876,15 +707,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-updateMapByMap
-(Map.of("text", "예제3"), Map.of("type:endsWith", "EXAMPLE"));
-===
-Executed SQL
-===
+this.codeRepository.updateMapByMap(Map.of("text", "예제3"), Map.of("type:endsWith", "EXAMPLE"));
+
+=== Executed SQL ===
 UPDATE
     `code`
 SET `text`       = '예제3',
@@ -896,15 +721,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-deleteByMap
-(Map.of("type:endsWith", "EXAMPLE"));
-===
-Executed SQL
-===
+this.codeRepository.deleteByMap(Map.of("type:endsWith", "EXAMPLE"));
+
+=== Executed SQL ===
 DELETE
 FROM `code`
 WHERE (
@@ -915,15 +734,9 @@ WHERE (
 - `lt(<)`
 
 ```sql
-this
-.
-codeRepository
-.
-getItemsByMap
-(Map.of("displayOrder:lt", 3));
-===
-Executed SQL
-===
+this.codeRepository.getItemsByMap(Map.of("displayOrder:lt", 3));
+
+=== Executed SQL ===
 SELECT `updated_by`,
        `created_by`,
        `created`,
@@ -941,15 +754,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-updateMapByMap
-(Map.of("text", "예제3"), Map.of("displayOrder:lt", 3));
-===
-Executed SQL
-===
+this.codeRepository.updateMapByMap(Map.of("text", "예제3"), Map.of("displayOrder:lt", 3));
+
+=== Executed SQL ===
 UPDATE
     `code`
 SET `text`       = '예제3',
@@ -961,15 +768,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-deleteByMap
-(Map.of("displayOrder:lt", 3));
-===
-Executed SQL
-===
+this.codeRepository.deleteByMap(Map.of("displayOrder:lt", 3));
+
+=== Executed SQL ===
 DELETE
 FROM `code`
 WHERE (
@@ -980,15 +781,9 @@ WHERE (
 - `lte (<=)`
 
 ```sql
-this
-.
-codeRepository
-.
-getItemsByMap
-(Map.of("displayOrder:lte", 3));
-===
-Executed SQL
-===
+this.codeRepository.getItemsByMap(Map.of("displayOrder:lte", 3));
+
+=== Executed SQL ===
 SELECT `updated_by`,
        `created_by`,
        `created`,
@@ -1006,15 +801,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-updateMapByMap
-(Map.of("text", "예제3"), Map.of("displayOrder:lte", 3));
-===
-Executed SQL
-===
+this.codeRepository.updateMapByMap(Map.of("text", "예제3"), Map.of("displayOrder:lte", 3));
+
+=== Executed SQL ===
 UPDATE
     `code`
 SET `text`       = '예제3',
@@ -1026,15 +815,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-deleteByMap
-(Map.of("displayOrder:lte", 3));
-===
-Executed SQL
-===
+this.codeRepository.deleteByMap(Map.of("displayOrder:lte", 3));
+
+=== Executed SQL ===
 DELETE
 FROM `code`
 WHERE (
@@ -1045,15 +828,9 @@ WHERE (
 - `gt(>)`
 
 ```sql
-this
-.
-codeRepository
-.
-getItemsByMap
-(Map.of("displayOrder:gt", 3));
-===
-Executed SQL
-===
+this.codeRepository.getItemsByMap(Map.of("displayOrder:gt", 3));
+
+=== Executed SQL ===
 SELECT `updated_by`,
        `created_by`,
        `created`,
@@ -1071,15 +848,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-updateMapByMap
-(Map.of("text", "예제3"), Map.of("displayOrder:gt", 3));
-===
-Executed SQL
-===
+this.codeRepository.updateMapByMap(Map.of("text", "예제3"), Map.of("displayOrder:gt", 3));
+
+=== Executed SQL ===
 UPDATE
     `code`
 SET `text`       = '예제3',
@@ -1091,15 +862,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-deleteByMap
-(Map.of("displayOrder:gt", 3));
-===
-Executed SQL
-===
+this.codeRepository.deleteByMap(Map.of("displayOrder:gt", 3));
+
+=== Executed SQL ===
 DELETE
 FROM `code`
 WHERE (
@@ -1110,15 +875,9 @@ WHERE (
 - `gte(>=)`
 
 ```sql
-this
-.
-codeRepository
-.
-getItemsByMap
-(Map.of("displayOrder:gte", 3));
-===
-Executed SQL
-===
+this.codeRepository.getItemsByMap(Map.of("displayOrder:gte", 3));
+
+=== Executed SQL ===
 SELECT `updated_by`,
        `created_by`,
        `created`,
@@ -1136,15 +895,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-updateMapByMap
-(Map.of("text", "예제3"), Map.of("displayOrder:gte", 3));
-===
-Executed SQL
-===
+this.codeRepository.updateMapByMap(Map.of("text", "예제3"), Map.of("displayOrder:gte", 3));
+
+=== Executed SQL ===
 UPDATE
     `code`
 SET `text`       = '예제3',
@@ -1156,15 +909,9 @@ WHERE (
 ```
 
 ```sql
-this
-.
-codeRepository
-.
-deleteByMap
-(Map.of("displayOrder:gte", 3));
-===
-Executed SQL
-===
+this.codeRepository.deleteByMap(Map.of("displayOrder:gte", 3));
+
+=== Executed SQL ===
 DELETE
 FROM `code`
 WHERE (
@@ -1177,15 +924,9 @@ WHERE (
 > Order by 단독으로도 사용가능하고 Where conditions 와 조합하여 사용할 수 있습니다.
 
 ```sql
-this
-.
-codeRepository
-.
-getItemsOrderBy
-(List.of("-displayOrder", "value"));
-===
-Executed SQL
-===
+this.codeRepository.getItemsOrderBy(List.of("-displayOrder", "value"));
+
+=== Executed SQL ===
 SELECT `updated_by`,
        `created_by`,
        `created`,
@@ -1204,4 +945,4 @@ ORDER BY `display_order` desc, `value` asc
 
 코드가 깔끔하지 않음을 알고 있으며 계속 개선하겠습니다.
 
-그리고 Swagger UI 를 위한 Contoller 는 예제를 돌리기 위한 코드용도로만 작성되었으며 코드상에 이상한 부분(뻘짓)이 있어도 수정하지 않겠습니다.
+그리고 Swagger UI 를 위한 Contoller 는 예제를 돌리기 위한 코드용도로만 작성되었으며 코드상에 이상한 부분이 있어도 수정하지 않겠습니다.
